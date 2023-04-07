@@ -99,9 +99,9 @@ int main(void)
   while (1)
   {
 	  GPIOA->BSRR = GPIO_BSRR_BS5;//	LD2 ON
-	  HAL_Delay(1000);//				1 second delay
+	  HAL_Delay(1000);//			1 second delay
 	  GPIOA->BSRR = GPIO_BSRR_BR5;//	LD2 OFF
-	  HAL_Delay(1000);//				1 second delay
+	  HAL_Delay(1000);//			1 second delay
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -181,7 +181,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;//	I/O port A clock enable
+	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;//		I/O port A clock enable
 }
 
 void USER_GPIO_Init(void){
