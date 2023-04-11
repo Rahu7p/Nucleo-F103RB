@@ -4,8 +4,8 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board			    : nucleo-f103rb
-  * @mcu			      : stm32f103rb
+  * @board	    : nucleo-f103rb
+  * @mcu	    : stm32f103rb
   *
   *
   *
@@ -99,6 +99,7 @@ int main(void)
   while (1)
   {
 	  USER_USART2_Transmit( msg, sizeof( msg ) );
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -118,13 +119,12 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
-  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -152,7 +152,6 @@ void SystemClock_Config(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
@@ -162,24 +161,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB1ENR	|=	 RCC_APB1ENR_USART2EN;//  USART2 clock enable
-	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN;//    I/O port A clock enable
+	RCC->APB1ENR	|=	 RCC_APB1ENR_USART2EN;//  	USART2 clock enable
+	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN;//    	I/O port A clock enable
 }
 
 void USER_GPIO_Init(void){
@@ -189,26 +178,26 @@ void USER_GPIO_Init(void){
 }
 
 void USER_USART2_Init(void){
-	USART2->BRR	 =	0x1D4C;//			      9600 bps -> 468.75, 0% error
-	USART2->CR1	&=	~USART_CR1_M//		  1 start bit, 8 data bits
-				&	~USART_CR1_WAKE//	          idle line
-				&	~USART_CR1_PCE//	          parity control disabled
-				&	~USART_CR1_TXEIE//	        interrupt disabled (empty transmit reg)
-				&	~USART_CR1_TCIE//	          interrupt disabled (transmission complete)
-				&	~USART_CR1_RXNEIE//	        interrupt disabled (data received)
-				&	~USART_CR1_IDLEIE//	        interrupt disabled (idle line detected)
-				&	~USART_CR1_RWU//	          receiver active mode
-				&	~USART_CR1_SBK;//	          no break character transmitted
-	USART2->CR1	|=	 USART_CR1_UE//		  USART enabled
-				|	 USART_CR1_TE//		          transmitter enabled
-				|	 USART_CR1_RE;//	          receiver enabled
-	USART2->CR2	&=	~USART_CR2_STOP;//  1 stop bit
+	USART2->BRR	 =	0xD05;//			9600 bps -> 208.33, 
+	USART2->CR1	&=	~USART_CR1_M//		  	1 start bit, 8 data bits
+			&	~USART_CR1_WAKE//		idle line
+			&	~USART_CR1_PCE//		parity control disabled
+			&	~USART_CR1_TXEIE//		interrupt disabled (empty transmit reg)
+			&	~USART_CR1_TCIE//		interrupt disabled (transmission complete)
+			&	~USART_CR1_RXNEIE//		interrupt disabled (data received)
+			&	~USART_CR1_IDLEIE//		interrupt disabled (idle line detected)
+			&	~USART_CR1_RWU//		receiver active mode
+			&	~USART_CR1_SBK;//		no break character transmitted
+	USART2->CR1	|=	 USART_CR1_UE//		  	USART enabled
+			|	 USART_CR1_TE//		        transmitter enabled
+			|	 USART_CR1_RE;//	        receiver enabled
+	USART2->CR2	&=	~USART_CR2_STOP;//  		1 stop bit
 }
 
 void USER_USART2_Transmit(uint8_t *pData, uint16_t size ){
 	for( int i = 0; i < size; i++ ){
-		while( ( USART2->SR & USART_SR_TXE ) == 0 ){}// wait until transmit reg is empty
-		USART2->DR = *pData++;//						            transmit data
+		while( ( USART2->SR & USART_SR_TXE ) == 0 ){}//	wait until transmit reg is empty
+		USART2->DR = *pData++;//			transmit data
 	}
 }
 /* USER CODE END 4 */
