@@ -35,45 +35,45 @@ void LCD_Init(void){
   /* ****************************************************** */ 
 
 	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
-				        |	1U << LCD_D5_PIN_HIGH
-				        |	1U << LCD_D6_PIN_LOW
-				        |	1U << LCD_D7_PIN_LOW;
+			|	1U << LCD_D5_PIN_HIGH
+			|	1U << LCD_D6_PIN_LOW
+			|	1U << LCD_D7_PIN_LOW;
 	HAL_Delay(15);
 
 	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
-				        |	1U << LCD_D5_PIN_HIGH
-				        |	1U << LCD_D6_PIN_LOW
-				        |	1U << LCD_D7_PIN_LOW;
+			|	1U << LCD_D5_PIN_HIGH
+			|	1U << LCD_D6_PIN_LOW
+			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	HAL_Delay(5);//											    deberia ser un delay de 4.1ms
+	HAL_Delay(5);//					deberia ser un delay de 4.1ms
 
 	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
-				        |	1U << LCD_D5_PIN_HIGH
-				        |	1U << LCD_D6_PIN_LOW
-				        |	1U << LCD_D7_PIN_LOW;
+			|	1U << LCD_D5_PIN_HIGH
+			|	1U << LCD_D6_PIN_LOW
+			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	HAL_Delay(1);//											    deberia ser un delay de 100us
+	HAL_Delay(1);//					deberia ser un delay de 100us
 
 	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
-				        |	1U << LCD_D5_PIN_HIGH
-				        |	1U << LCD_D6_PIN_LOW
-				        |	1U << LCD_D7_PIN_LOW;
+			|	1U << LCD_D5_PIN_HIGH
+			|	1U << LCD_D6_PIN_LOW
+			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 
-	while( LCD_Busy( ) );//									espera a que el LCD este operativo
+	while( LCD_Busy( ) );//				espera a que el LCD este operativo
 	GPIOB->BSRR	 =	1U << LCD_D4_PIN_LOW
-				|	1U << LCD_D5_PIN_HIGH
-				|	1U << LCD_D6_PIN_LOW
-				|	1U << LCD_D7_PIN_LOW;
+			|	1U << LCD_D5_PIN_HIGH
+			|	1U << LCD_D6_PIN_LOW
+			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 
-	while( LCD_Busy( ) );//									espera a que se complete
-	LCD_Write_Cmd( 0x28U );//								establecemos LCD como: datos 4-bit, #lineas=2, font=5x7 dots
-	LCD_Write_Cmd( 0x0CU );//								enciende el LCD sin cursor
-	LCD_Write_Cmd( 0x06U );//								inicializa cursor
+	while( LCD_Busy( ) );//				espera a que se complete
+	LCD_Write_Cmd( 0x28U );//			establecemos LCD como: datos 4-bit, #lineas=2, font=5x7 dots
+	LCD_Write_Cmd( 0x0CU );//			enciende el LCD sin cursor
+	LCD_Write_Cmd( 0x06U );//			inicializa cursor
 
 	//Cargamos el caracter definido por el usuario en la CGRAM
-	LCD_Write_Cmd( 0x40 );//								establece la direccion CGRAM desde 0
+	LCD_Write_Cmd( 0x40 );//			establece la direccion CGRAM desde 0
 	p = &UserFont[0][0];
 
 	for( int i = 0; i < sizeof( UserFont ); i++, p++ )
