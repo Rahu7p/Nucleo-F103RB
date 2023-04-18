@@ -209,9 +209,9 @@ char LCD_Busy(void){
 
 //Funcion que genera un pulso en el pin EN del LCD
 void LCD_Pulse_EN(void){
-	GPIOB->BSRR	=	1U << LCD_EN_PIN_HIGH;//				habilita pin EN ON
-	HAL_Delay(1);//											          deberia de ser un delay de 50us
-	GPIOB->BSRR	=	1U << LCD_EN_PIN_LOW;//					habilita pin EN OFF
+	GPIOB->BSRR	=	1U << LCD_EN_PIN_HIGH;//		habilita pin EN ON
+	HAL_Delay(1);//							deberia de ser un delay de 50us
+	GPIOB->BSRR	=	1U << LCD_EN_PIN_LOW;//			habilita pin EN OFF
 }
 
 /*
@@ -220,7 +220,7 @@ void LCD_Pulse_EN(void){
  * en 'size' especificamos su tamaño
  */
 void LCD_BarGraphic(int value, int size){
-	value = value * size / 20;//							matriz de 5x8 pixeles
+	value = value * size / 20;//					matriz de 5x8 pixeles
 	for( int i = 0; i < size; i++ ){
 		if( value > 5 ){
 			LCD_Put_Char( 0x05U );
