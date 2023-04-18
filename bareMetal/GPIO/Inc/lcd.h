@@ -30,7 +30,7 @@
 /* *********************************************************************** */
 
 //Definimos los nombres de los comandos para el LCD
-#define LCD_Clear( )        LCD_Write_Cmd( 0x01U )//	Borra la pantalla
+#define LCD_Clear( )            LCD_Write_Cmd( 0x01U )//	Borra la pantalla
 #define LCD_Display_ON( )	LCD_Write_Cmd( 0x0EU )//	Pantalla LCD activa
 #define LCD_Display_OFF( )	LCD_Write_Cmd( 0x08U )//	Pantalla LCD inactiva
 #define LCD_Cursor_Home( )	LCD_Write_Cmd( 0x02U )//	Establecer el cursor a 'Home'
