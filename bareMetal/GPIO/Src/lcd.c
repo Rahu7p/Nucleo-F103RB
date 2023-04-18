@@ -197,7 +197,7 @@ char LCD_Busy(void){
 		GPIOB->BSRR	 =	1U << LCD_RW_PIN_LOW
 				|	1U << LCD_EN_PIN_LOW;
 
-		/* ***************************************************** */
+    /* ***************************************************** */
     /* Configurar la linea D7 del LCD como:
      * general purpose output and 50 MHz speed               */
 		
