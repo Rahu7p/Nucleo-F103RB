@@ -11,22 +11,22 @@
 /* *********************************************************************** */
 /* Completar la lista de definicion de pines del LCD (Puerto B)            */
 
-#define LCD_RS_PIN_HIGH		GPIO_BSRR_Bxxx_Pos//		Set pin RS_LCD
-#define LCD_RS_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin RS_LCD
-#define LCD_RW_PIN_HIGH 	GPIO_BSRR_Bxxx_Pos//		Set pin RW_LCD 
-#define LCD_RW_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin RW_LCD 
-#define LCD_EN_PIN_HIGH 	GPIO_BSRR_Bxxx_Pos//		Set pin EN_LCD 
-#define LCD_EN_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin EN_LCD 
+#define LCD_RS_PIN_HIGH		                  //		Set pin RS_LCD
+#define LCD_RS_PIN_LOW 		                  //		Reset pin RS_LCD
+#define LCD_RW_PIN_HIGH 	                  //		Set pin RW_LCD 
+#define LCD_RW_PIN_LOW 		                  //		Reset pin RW_LCD 
+#define LCD_EN_PIN_HIGH 	                  //		Set pin EN_LCD 
+#define LCD_EN_PIN_LOW 		                  //		Reset pin EN_LCD 
 
-#define LCD_D4_PIN_HIGH		GPIO_BSRR_Bxxx_Pos//		Set pin DATA4_LCD 
-#define LCD_D5_PIN_HIGH 	GPIO_BSRR_Bxxx_Pos//		Set pin DATA5_LCD 
-#define LCD_D6_PIN_HIGH 	GPIO_BSRR_Bxxx_Pos//		Set pin DATA6_LCD 
-#define LCD_D7_PIN_HIGH 	GPIO_BSRR_Bxxx_Pos//		Set pin DATA7_LCD 
+#define LCD_D4_PIN_HIGH		                  //		Set pin DATA4_LCD 
+#define LCD_D5_PIN_HIGH 	                  //		Set pin DATA5_LCD 
+#define LCD_D6_PIN_HIGH 	                  //		Set pin DATA6_LCD 
+#define LCD_D7_PIN_HIGH 	                  //		Set pin DATA7_LCD 
 
-#define LCD_D4_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin DATA4_LCD 
-#define LCD_D5_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin DATA5_LCD 
-#define LCD_D6_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin DATA6_LCD 
-#define LCD_D7_PIN_LOW 		GPIO_BSRR_Bxxx_Pos//		Reset pin DATA7_LCD 
+#define LCD_D4_PIN_LOW 		                  //		Reset pin DATA4_LCD 
+#define LCD_D5_PIN_LOW 		                  //		Reset pin DATA5_LCD 
+#define LCD_D6_PIN_LOW 		                  //		Reset pin DATA6_LCD 
+#define LCD_D7_PIN_LOW 		                  //		Reset pin DATA7_LCD 
 /* *********************************************************************** */
 
 //Definimos los nombres de los comandos para el LCD
