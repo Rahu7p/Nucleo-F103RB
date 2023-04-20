@@ -178,20 +178,12 @@ void USER_GPIO_Init(void){
 }
 
 void USER_USART2_Init(void){
-	USART2->BRR	 =	0xD05;//			9600 bps -> 208.33, 
+	USART2->CR1	|=	 USART_CR1_UE;//		USART enabled
 	USART2->CR1	&=	~USART_CR1_M//		  	1 start bit, 8 data bits
-			&	~USART_CR1_WAKE//		idle line
-			&	~USART_CR1_PCE//		parity control disabled
-			&	~USART_CR1_TXEIE//		interrupt disabled (empty transmit reg)
-			&	~USART_CR1_TCIE//		interrupt disabled (transmission complete)
-			&	~USART_CR1_RXNEIE//		interrupt disabled (data received)
-			&	~USART_CR1_IDLEIE//		interrupt disabled (idle line detected)
-			&	~USART_CR1_RWU//		receiver active mode
-			&	~USART_CR1_SBK;//		no break character transmitted
-	USART2->CR1	|=	 USART_CR1_UE//		  	USART enabled
-			|	 USART_CR1_TE//		        transmitter enabled
-			|	 USART_CR1_RE;//	        receiver enabled
+			&	~USART_CR1_PCE;//		parity control disabled
 	USART2->CR2	&=	~USART_CR2_STOP;//  		1 stop bit
+	USART2->BRR	 =	 0xD05;//			9600 bps -> 208.33, 
+	USART2->CR1	|=	 USART_CR1_TE//		        transmitter enabled
 }
 
 void USER_USART2_Transmit(uint8_t *pData, uint16_t size ){
