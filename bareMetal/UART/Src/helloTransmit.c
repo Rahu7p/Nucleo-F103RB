@@ -183,7 +183,7 @@ void USER_USART2_Init(void){
 			&	~USART_CR1_PCE;//		parity control disabled
 	USART2->CR2	&=	~USART_CR2_STOP;//  		1 stop bit
 	USART2->BRR	 =	 0xD05;//			9600 bps -> 208.33, 
-	USART2->CR1	|=	 USART_CR1_TE//		        transmitter enabled
+	USART2->CR1	|=	 USART_CR1_TE;//	        transmitter enabled
 }
 
 void USER_USART2_Transmit(uint8_t *pData, uint16_t size ){
