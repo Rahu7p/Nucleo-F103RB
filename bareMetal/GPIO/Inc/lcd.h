@@ -8,8 +8,11 @@
 #ifndef INC_LCD_H_
 #define INC_LCD_H_
 
-/* *********************************************************************** */
-/* Completar la lista de definicion de pines del LCD (Puerto B)            */
+/* **************************************************************************** */
+/* Completar la lista de definicion de pines del LCD (Puerto B)                 *
+ * Ejemplo: D4 (LCD) conectado al pin PB2 del microcontrolador...               *
+ *          #define LCD_D4_PIN_HIGH   GPIO_BSRR_BS2_Pos // Set pin DATA4_LCD    *
+ *          #define LCD_D4_PIN_LOW    GPIO_BSRR_BR2_Pos // Reset pin DATA4_LCD  */
 
 #define LCD_RS_PIN_HIGH		                  //		Set pin RS_LCD
 #define LCD_RS_PIN_LOW 		                  //		Reset pin RS_LCD
