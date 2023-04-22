@@ -4,8 +4,8 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board			: nucleo-f103rb
-  * @mcu			  : stm32f103rb
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
   *
   *
   *
@@ -98,10 +98,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  ADC1->CR2	|=	 ADC_CR2_ADON;//		starts the conversion
+  ADC1->CR2	|=	 ADC_CR2_ADON;//	starts the conversion
   while (1)
   {
-	  dataADC = USER_ADC_Read( );
+      dataADC = USER_ADC_Read( );
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -170,31 +170,31 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB2ENR	|= 	 RCC_APB2ENR_IOPAEN//		I/O port A clock enable
-					      |	   RCC_APB2ENR_ADC1EN;//	ADC 1 clock enable
-	RCC->CFGR		  |=	 RCC_CFGR_ADCPRE;//			ADC prescaler 1:8 for 8 MHz
+	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN//	I/O port A clock enable
+		      	|	 RCC_APB2ENR_ADC1EN;//	ADC 1 clock enable
+	RCC->CFGR	|=	 RCC_CFGR_ADCPRE;//	ADC prescaler 1:8 for 8 MHz
 }
 void USER_GPIO_Init(void){
 	//PA0 (ADC12_IN0) as analog
-	GPIOA->CRL	  &=	~GPIO_CRL_CNF0 & ~GPIO_CRL_MODE0;
+	GPIOA->CRL	&=	~GPIO_CRL_CNF0 & ~GPIO_CRL_MODE0;
 }
 void USER_ADC_Init(void){
-	ADC1->CR1	    &=	~ADC_CR1_DUALMOD;//	  independent mode
-	ADC1->CR2	    &=	~ADC_CR2_ALIGN;//		  right alignment for the result
-	ADC1->CR2	    |=	 ADC_CR2_CONT;//		  continuous conversion mode
-	ADC1->SMPR2	  &=	~ADC_SMPR2_SMP0;//		1.5 cycles channel sample time
-	ADC1->SQR1	  &=	~ADC_SQR1_L;//			  1 conversion on regular channels
-	ADC1->SQR3 	  &=	~ADC_SQR3_SQ1;//		  first and only conversion in Ch0
-	ADC1->CR2	    |=	 ADC_CR2_ADON;//		  ADC enabled
-	HAL_Delay(1);//							            tstab(1us) after ADC enabled, real 1ms
+	ADC1->CR1	&=	~ADC_CR1_DUALMOD;//	independent mode
+	ADC1->CR2	&=	~ADC_CR2_ALIGN;//	right alignment for the result
+	ADC1->CR2	|=	 ADC_CR2_CONT;//	continuous conversion mode
+	ADC1->SMPR2	&=	~ADC_SMPR2_SMP0;//	1.5 cycles channel sample time
+	ADC1->SQR1	&=	~ADC_SQR1_L;//		1 conversion on regular channels
+	ADC1->SQR3 	&=	~ADC_SQR3_SQ1;//	first and only conversion in Ch0
+	ADC1->CR2	|=	 ADC_CR2_ADON;//	ADC enabled
+	HAL_Delay(1);//					tstab(1us) after ADC enabled, real 1ms
 }
 void USER_ADC_Calibration(void){
-	ADC1->CR2	    |=	 ADC_CR2_CAL;//			  start calibration
-	while( ADC1->CR2 & ADC_CR2_CAL );//		  wait until calibration is done
+	ADC1->CR2	|=	 ADC_CR2_CAL;//		start calibration
+	while( ADC1->CR2 & ADC_CR2_CAL );//		wait until calibration is done
 }
 uint16_t USER_ADC_Read( void ){
-	while( !( ADC1->SR & ADC_SR_EOC ) );//	wait until conversion is done
-	return (uint16_t)ADC1->DR;//			      return ADC data
+	while( !( ADC1->SR & ADC_SR_EOC ) );//		wait until conversion is done
+	return (uint16_t)ADC1->DR;//			return ADC data
 }
 /* USER CODE END 4 */
 
