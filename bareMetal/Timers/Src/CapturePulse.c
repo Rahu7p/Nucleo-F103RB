@@ -5,7 +5,7 @@
   * @author         : rahu7p
   ******************************************************************************
   * @board	  : nucleo-f103rb
-  * @mcu	    : stm32f103rb
+  * @mcu	  : stm32f103rb
   *
   *
   *
@@ -109,7 +109,7 @@ int main(void)
 	  }
     /* USER CODE END WHILE */
 
-	/* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
   }
 
   /* USER CODE END 3 */
@@ -181,23 +181,23 @@ void USER_GPIO_Init(void){
 }
 void USER_TIM2_Capture_Init(void){
 	TIM2->CR1	&=	~TIM_CR1_CKD_0;
-	TIM2->CR1	|=	 TIM_CR1_CKD_1;//		sampling (DTS) = TIM_CLK/4
-	TIM2->CCMR1 &=	~TIM_CCMR1_CC1S_1;
-	TIM2->CCMR1 |=	 TIM_CCMR1_CC1S_0;//	CC1 channel as input, mapped on TI1
-	TIM2->CCMR1 |=	 TIM_CCMR1_IC1F;//		filter -> DTS/32, N=8
-	TIM2->CCER	|=	 TIM_CCER_CC1P;//		capture is done on falling edge
-	TIM2->CCMR1 &=	~TIM_CCMR1_IC1PSC;//	no prescaler
-	TIM2->CCER	|=	 TIM_CCER_CC1E;//		capture enabled
-	TIM2->PSC	 =	 65535;//				maximum prescaler
-	TIM2->CR1	|=	 TIM_CR1_CEN;//			counter enabled
+	TIM2->CR1	|=	 TIM_CR1_CKD_1;//	sampling (DTS) = TIM_CLK/4
+	TIM2->CCMR1 	&=	~TIM_CCMR1_CC1S_1;
+	TIM2->CCMR1 	|=	 TIM_CCMR1_CC1S_0;//	CC1 channel as input, mapped on TI1
+	TIM2->CCMR1 	|=	 TIM_CCMR1_IC1F;//	filter -> DTS/32, N=8
+	TIM2->CCER	|=	 TIM_CCER_CC1P;//	capture is done on falling edge
+	TIM2->CCMR1 	&=	~TIM_CCMR1_IC1PSC;//	no prescaler
+	TIM2->CCER	|=	 TIM_CCER_CC1E;//	capture enabled
+	TIM2->PSC	 =	 65535;//		maximum prescaler
+	TIM2->CR1	|=	 TIM_CR1_CEN;//		counter enabled
 }
 void USER_TIM2_Capture_TEdge(void){
-	TIM2->CCER	^=	 TIM_CCER_CC1P;//		capture is done on different edge
-	TIM2->CNT	 =	 0;//					reset counter
+	TIM2->CCER	^=	 TIM_CCER_CC1P;//	capture is done on different edge
+	TIM2->CNT	 =	 0;//			reset the counter
 }
 uint16_t USER_TIM2_Capture_Event(void){
-	while( !(TIM2->SR & TIM_SR_CC1IF) );//	wait until a capture occurrs
-	return TIM2->CCR1;//					return the captured value
+	while( !(TIM2->SR & TIM_SR_CC1IF) );//		wait until a capture occurrs
+	return TIM2->CCR1;//				return the captured value
 }
 /* USER CODE END 4 */
 
