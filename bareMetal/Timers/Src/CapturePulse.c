@@ -52,7 +52,6 @@ static void MX_GPIO_Init(void);
 void USER_RCC_Init(void);
 void USER_GPIO_Init(void);
 void USER_TIM2_Capture_Init(void);
-void USER_TIM2_Capture_TEdge(void);
 uint16_t USER_TIM2_Capture_Event(void);
 /* USER CODE END PFP */
 
@@ -68,7 +67,7 @@ uint16_t USER_TIM2_Capture_Event(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint16_t event_val;
+  uint16_t event_val1, event_val2, event_diff;
   float pressed_t;
   /* USER CODE END 1 */
 
@@ -101,12 +100,13 @@ int main(void)
   printf("Starting...\r\n");
   while (1)
   {
-	  if( USER_TIM2_Capture_Event() ){
-		  USER_TIM2_Capture_TEdge();
-		  event_val = USER_TIM2_Capture_Event();
-		  pressed_t = ( 1.0 / 64000000.0 ) * event_val * (TIM2->PSC + 1);
-		  USER_TIM2_Capture_TEdge();
-	  }
+	event_val1 = USER_TIM2_Capture_Event();//	capture the 1st event
+	TIM2->CCER ^=	TIM_CCER_CC1P;//		capture is done on different edge
+	event_val2 = USER_TIM2_Capture_Event();//	capture the 2nd event
+	event_diff = event_val2 - event_val1;//		2nd event - 1st event
+	//Calculating time according to the timer ticks difference
+	pressed_t = ( 1.0 / 64000000.0 ) * event_diff * (TIM2->PSC + 1);
+	TIM2->CCER ^=	TIM_CCER_CC1P;//		capture is done on different edge
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -190,10 +190,6 @@ void USER_TIM2_Capture_Init(void){
 	TIM2->CCER	|=	 TIM_CCER_CC1E;//	capture enabled
 	TIM2->PSC	 =	 65535;//		maximum prescaler
 	TIM2->CR1	|=	 TIM_CR1_CEN;//		counter enabled
-}
-void USER_TIM2_Capture_TEdge(void){
-	TIM2->CCER	^=	 TIM_CCER_CC1P;//	capture is done on different edge
-	TIM2->CNT	 =	 0;//			reset the counter
 }
 uint16_t USER_TIM2_Capture_Event(void){
 	while( !(TIM2->SR & TIM_SR_CC1IF) );//		wait until a capture occurrs
