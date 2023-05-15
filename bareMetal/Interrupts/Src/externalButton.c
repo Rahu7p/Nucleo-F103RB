@@ -4,13 +4,13 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board			: nucleo-f103rb
-  * @mcu			  : stm32f103rb
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
   *
   *
   *
-  * This code programs a blinking LED (LD2): on-and-off every second.
-  *
+  * This code toggles the state of a LED (LD2) each time a button (B1) is pressed.
+  * An external interrupt is configured to detect the event (button pressed).
   *
   *
   ******************************************************************************
@@ -59,7 +59,7 @@ void USER_EXTI_Init(void);
 void EXTI9_5_IRQHandler(void){
 	if( EXTI->PR & EXTI_PR_PR8 ){
 		GPIOA->ODR ^= GPIO_ODR_ODR5;//	toggle USER Led
-		EXTI->PR |=	EXTI_PR_PR8;
+		EXTI->PR   |= EXTI_PR_PR8;
 	}
 }
 /* USER CODE END 0 */
@@ -178,9 +178,9 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB2ENR 	|= 	RCC_APB2ENR_IOPAEN//	I/O port A clock enable
-					      |	  RCC_APB2ENR_IOPCEN
-					      |	  RCC_APB2ENR_AFIOEN;
+	RCC->APB2ENR 	|= RCC_APB2ENR_IOPAEN//	I/O port A clock enable
+			|  RCC_APB2ENR_IOPCEN
+			|  RCC_APB2ENR_AFIOEN;
 }
 
 void USER_GPIO_Init(void){
@@ -205,9 +205,9 @@ void USER_GPIO_Init(void){
 
 void USER_EXTI_Init(void){
 	AFIO->EXTICR[3] &=	~AFIO_EXTICR3_EXTI8;
-	EXTI->PR		    |=	 EXTI_PR_PR8;
-	EXTI->IMR		    |=	 EXTI_IMR_MR8;
-	EXTI->FTSR		  |=	 EXTI_FTSR_TR8;
+	EXTI->PR	|=	 EXTI_PR_PR8;
+	EXTI->IMR	|=	 EXTI_IMR_MR8;
+	EXTI->FTSR	|=	 EXTI_FTSR_TR8;
 	NVIC_EnableIRQ(EXTI9_5_IRQn);
 }
 /* USER CODE END 4 */
