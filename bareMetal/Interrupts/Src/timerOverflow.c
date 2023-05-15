@@ -4,8 +4,8 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board			: nucleo-f103rb
-  * @mcu			  : stm32f103rb
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
   *
   *
   *
@@ -58,9 +58,9 @@ void USER_TIM2_Delay(void);
 /* USER CODE BEGIN 0 */
 void TIM2_IRQHandler(void){
 	if( TIM2->SR & TIM_SR_UIF ){
-		GPIOA->ODR ^= GPIO_ODR_ODR5;//  toggle USER Led
-		TIM2->CNT =	29U;//					    initial count
-		TIM2->SR &= ~TIM_SR_UIF;//		  UIF cleared
+		GPIOA->ODR ^=  GPIO_ODR_ODR5;//	toggle USER Led
+		TIM2->CNT   =  29U;//		initial count
+		TIM2->SR   &= ~TIM_SR_UIF;//	UIF cleared
 	}
 }
 /* USER CODE END 0 */
@@ -171,7 +171,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
 	RCC->APB2ENR  |=  RCC_APB2ENR_IOPAEN;//	  I/O port A clock enable
-	RCC->APB1ENR  |=	RCC_APB1ENR_TIM2EN;//	  TIM2 clock enabled
+	RCC->APB1ENR  |=  RCC_APB1ENR_TIM2EN;//	  TIM2 clock enabled
 }
 
 void USER_GPIO_Init(void){
@@ -183,15 +183,15 @@ void USER_GPIO_Init(void){
 
 //Function to generate a 1 second delay
 void USER_TIM2_Delay(void){
-	TIM2->SMCR  &=  ~TIM_SMCR_SMS;//  select internal clock
-	TIM2->CR1	  &=  ~TIM_CR1_CMS//		edge-aligned mode
-				      &   ~TIM_CR1_DIR//		upcounter
-				      &   ~TIM_CR1_UDIS;//	update event (UEV) enabled
-	TIM2->SR	  &=  ~TIM_SR_UIF;//		clear update interrupt flag
-	TIM2->PSC		 =	976U;//					  1:977 prescaler
-	TIM2->CNT	   =	29U;//					  initial count
+	TIM2->SMCR  &=  ~TIM_SMCR_SMS;//  	select internal clock
+	TIM2->CR1   &=  ~TIM_CR1_CMS//		edge-aligned mode
+		    &   ~TIM_CR1_DIR//		upcounter
+		    &   ~TIM_CR1_UDIS;//	update event (UEV) enabled
+	TIM2->SR    &=  ~TIM_SR_UIF;//		clear update interrupt flag
+	TIM2->PSC    =	976U;//			1:977 prescaler
+	TIM2->CNT    =	29U;//			initial count
 	TIM2->DIER  |= 	TIM_DIER_UIE;//		UIF interrupt enabled
-	NVIC_EnableIRQ(TIM2_IRQn);//			NVIC vector enabled
+	NVIC_EnableIRQ(TIM2_IRQn);//		NVIC vector enabled
 	TIM2->CR1   |=	TIM_CR1_CEN;//		timer enabled
 }
 /* USER CODE END 4 */
