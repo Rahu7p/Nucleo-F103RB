@@ -4,9 +4,9 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board		: nucleo-f103rb
-  * @mcu			: stm32f103rb
-  * @api      : CMSIS-RTOSv1
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
+  * @api      	: CMSIS-RTOSv1
   *
   *
   * This code creates two tasks with same priority: a sender and a receiver task.
