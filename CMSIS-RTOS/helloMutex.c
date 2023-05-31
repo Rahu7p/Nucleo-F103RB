@@ -4,9 +4,9 @@
   * @file           : main.c
   * @author         : rahu7p
   ******************************************************************************
-  * @board		: nucleo-f103rb
-  * @mcu			: stm32f103rb
-  * @api      : CMSIS-RTOSv1
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
+  * @api      	: CMSIS-RTOSv1
   *
   *
   * This code creates three tasks with same priority. Task1 and Task2 increments
