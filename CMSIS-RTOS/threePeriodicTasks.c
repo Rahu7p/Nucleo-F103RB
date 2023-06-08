@@ -197,7 +197,7 @@ void Task1(void const * argument){
 	uint32_t counter = 0;
 	for(;;)
 	{
-		printf("This is Task %d\r\n", *num);
+		//printf("This is Task %d\r\n", *num);
 		osDelay(PERIOD_T1 - TICK_DIFF_T1);
 	}
 }
@@ -207,7 +207,7 @@ void Task2(void const * argument){
 	uint32_t counter = 0;
 	for(;;)
 	{
-		printf("This is Task %d\r\n", *num);
+		//printf("This is Task %d\r\n", *num);
 		osDelay(PERIOD_T2 - TICK_DIFF_T2);
 	}
 }
@@ -217,7 +217,7 @@ void Task3(void const * argument){
 	uint32_t counter = 0;
 	for(;;)
 	{
-		printf("This is Task %d\r\n", *num);
+		//printf("This is Task %d\r\n", *num);
 		osDelay(PERIOD_T3 - TICK_DIFF_T3);
 	}
 }
