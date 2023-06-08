@@ -59,7 +59,7 @@ void Task2(void const * argument);
 void EXTI9_5_IRQHandler(void){
 	if( EXTI->PR & EXTI_PR_PR8 ){
 		osSignalSet(TaskHandle2, 1);
-		EXTI->PR |=	EXTI_PR_PR8;
+		EXTI->PR	|=	EXTI_PR_PR8;//		External Interrupt Flag cleared
 	}
 }
 /* USER CODE END PFP */
@@ -194,20 +194,20 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB2ENR	|= 	 RCC_APB2ENR_IOPAEN//		I/O port A clock enable
-					|	 RCC_APB2ENR_AFIOEN;//          AFIO clock enable
+	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN//		I/O port A clock enable
+			|	 RCC_APB2ENR_AFIOEN;//          AFIO clock enable
 }
 void USER_GPIO_Init(void){
 	//pin PA8 (EXTI input line) as input floating
-	GPIOA->CRH &= ~GPIO_CRH_MODE8 & ~GPIO_CRH_CNF8_1;
-	GPIOA->CRH |=  GPIO_CRH_CNF8_0;
+	GPIOA->CRH	&=	~GPIO_CRH_MODE8 & ~GPIO_CRH_CNF8_1;
+	GPIOA->CRH	|=  	 GPIO_CRH_CNF8_0;
 }
 void USER_EXTI_Init(void){
 	AFIO->EXTICR[3]	&=	~AFIO_EXTICR3_EXTI8;
-	EXTI->PR		|=	 EXTI_PR_PR8;
-	EXTI->IMR		|=	 EXTI_IMR_MR8;
-	EXTI->FTSR		|=	 EXTI_FTSR_TR8;
-	NVIC_SetPriority(EXTI9_5_IRQn, 5);//    The priority must be above level 5
+	EXTI->PR	|=	 EXTI_PR_PR8;
+	EXTI->IMR	|=	 EXTI_IMR_MR8;
+	EXTI->FTSR	|=	 EXTI_FTSR_TR8;
+	NVIC_SetPriority(EXTI9_5_IRQn, 5);//    		The priority must be above level 5
 	NVIC_EnableIRQ(EXTI9_5_IRQn);
 }
 void Task1(void const * argument){
@@ -222,7 +222,7 @@ void Task2(void const * argument){
 
 	for(;;)
 	{
-    osSignalWait(1, osWaitForever);
+    		osSignalWait(1, osWaitForever);
 		//printf("This is Task 2\r\n");
 	}
 }
