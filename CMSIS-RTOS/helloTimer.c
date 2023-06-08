@@ -9,9 +9,9 @@
   * @api      	: CMSIS-RTOSv1
   *
   *
-  * This code creates two periodic (500 ms) Tasks : Task1 > Task2 priority.
-  * A virtual Timer object is created to toggle a LED (User LED) each second. 
-  * NOTE: To use virtual Timers is necessary to enabled it from the FreeRTOS
+  * This code creates two periodic (500 ms) Tasks with same priority. Additionally,
+  * a virtual Timer object is created to toggle a LED (User LED) each second. 
+  * NOTE: To use virtual Timers it is necessary to enabled it from the FreeRTOS
   * configuration parameters.
   ******************************************************************************
   */
