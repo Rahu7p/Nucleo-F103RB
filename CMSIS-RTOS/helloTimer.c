@@ -2,17 +2,17 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body
+  * @author         : rahu7p
   ******************************************************************************
-  * @attention
+  * @board	: nucleo-f103rb
+  * @mcu	: stm32f103rb
+  * @api      	: CMSIS-RTOSv1
   *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
+  * This code creates two periodic (500 ms) Tasks : Task1 > Task2 priority.
+  * A virtual Timer object is created to toggle a LED (User LED) each second. 
+  * NOTE: To use virtual Timers is necessary to enabled it from the FreeRTOS
+  * configuration parameters.
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -32,8 +32,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define PERIOD_T1		500
-#define PERIOD_T2		500
+#define PERIOD_T1	500
+#define PERIOD_T2	500
 #define TICK_DIFF_T1	(osKernelSysTick() - (PERIOD_T1 * counter++))
 #define TICK_DIFF_T2 	(osKernelSysTick() - (PERIOD_T2 * counter++))
 /* USER CODE END PD */
@@ -95,7 +95,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   USER_RCC_Init();
   USER_GPIO_Init();
-  printf("Starting...\r\n");
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -194,13 +193,13 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_RCC_Init(void){
-	RCC->APB2ENR	|= 	 RCC_APB2ENR_IOPAEN;//		I/O port A clock enable
+	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN;//		I/O port A clock enable
 }
 void USER_GPIO_Init(void){
 	//pin PA5 (User LED) as output push-pull max speed 10MHz
-	GPIOA->BSRR = GPIO_BSRR_BR5;//			PA5 -> 0, LD2 OFF
-	GPIOA->CRL &= ~GPIO_CRL_CNF5 & ~GPIO_CRL_MODE5_1;
-	GPIOA->CRL |= GPIO_CRL_MODE5_0;
+	GPIOA->BSRR	= 	 GPIO_BSRR_BR5;//		PA5 -> 0, LD2 OFF
+	GPIOA->CRL 	&=	~GPIO_CRL_CNF5 & ~GPIO_CRL_MODE5_1;
+	GPIOA->CRL 	|= 	 GPIO_CRL_MODE5_0;
 }
 void Task1(void const * argument){
 	uint32_t counter = 0;
@@ -220,7 +219,7 @@ void Task2(void const * argument){
 	}
 }
 void Timer_Callback(void const *arg){
-	GPIOA->ODR ^= GPIO_ODR_ODR5;
+	GPIOA->ODR	^=	 GPIO_ODR_ODR5;//	toggle USER Led
 }
 /* USER CODE END 4 */
 
