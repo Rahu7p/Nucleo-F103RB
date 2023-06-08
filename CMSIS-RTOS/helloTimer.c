@@ -115,7 +115,7 @@ int main(void)
   /* definition and creation of defaultTask */
 
   /* USER CODE BEGIN RTOS_THREADS */
-  osThreadDef(task1, Task1, osPriorityAboveNormal, 0, 128);
+  osThreadDef(task1, Task1, osPriorityNormal, 0, 128);
   TaskHandle1 = osThreadCreate(osThread(task1), NULL);
   osThreadDef(task2, Task2, osPriorityNormal, 0, 128);
   TaskHandle2 = osThreadCreate(osThread(task2), NULL);
