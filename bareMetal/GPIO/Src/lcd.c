@@ -26,7 +26,7 @@ void LCD_Init(void){
 	char const *p;
 
   /* ****************************************************** */
-  /* Configurar los pines del Puerto B para las lineas: 
+  /* Configurar los pines del Puerto C para las lineas: 
    * RW, RS, EN, D4-D7 del LCD
    * como general purpose output push-pull and 50 MHz speed */
 	
@@ -34,34 +34,34 @@ void LCD_Init(void){
   
   /* ****************************************************** */ 
 
-	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
+	GPIOC->BSRR	 =	1U << LCD_D4_PIN_HIGH
 			|	1U << LCD_D5_PIN_HIGH
 			|	1U << LCD_D6_PIN_LOW
 			|	1U << LCD_D7_PIN_LOW;
 	HAL_Delay(15);
 
-	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
+	GPIOC->BSRR	 =	1U << LCD_D4_PIN_HIGH
 			|	1U << LCD_D5_PIN_HIGH
 			|	1U << LCD_D6_PIN_LOW
 			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 	HAL_Delay(5);//					deberia ser un delay de 4.1ms
 
-	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
+	GPIOC->BSRR	 =	1U << LCD_D4_PIN_HIGH
 			|	1U << LCD_D5_PIN_HIGH
 			|	1U << LCD_D6_PIN_LOW
 			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 	HAL_Delay(1);//					deberia ser un delay de 100us
 
-	GPIOB->BSRR	 =	1U << LCD_D4_PIN_HIGH
+	GPIOC->BSRR	 =	1U << LCD_D4_PIN_HIGH
 			|	1U << LCD_D5_PIN_HIGH
 			|	1U << LCD_D6_PIN_LOW
 			|	1U << LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 
 	while( LCD_Busy( ) );//				espera a que el LCD este operativo
-	GPIOB->BSRR	 =	1U << LCD_D4_PIN_LOW
+	GPIOC->BSRR	 =	1U << LCD_D4_PIN_LOW
 			|	1U << LCD_D5_PIN_HIGH
 			|	1U << LCD_D6_PIN_LOW
 			|	1U << LCD_D7_PIN_LOW;
@@ -85,24 +85,24 @@ void LCD_Init(void){
 //Funcion que genera un strobe en el LCD
 void LCD_Out_Data4(unsigned char val){
 	if( ( val & 0x01U ) == 0x01U )//			Bit[0]
-		GPIOB->BSRR	=	1U << LCD_D4_PIN_HIGH;
+		GPIOC->BSRR	=	1U << LCD_D4_PIN_HIGH;
 	else
-		GPIOB->BSRR	=	1U << LCD_D4_PIN_LOW;
+		GPIOC->BSRR	=	1U << LCD_D4_PIN_LOW;
 
 	if( ( val & 0x02U ) == 0x02U )//			Bit[1]
-		GPIOB->BSRR	=	1U << LCD_D5_PIN_HIGH;
+		GPIOC->BSRR	=	1U << LCD_D5_PIN_HIGH;
 	else
-		GPIOB->BSRR	=	1U << LCD_D5_PIN_LOW;
+		GPIOC->BSRR	=	1U << LCD_D5_PIN_LOW;
 
 	if( ( val & 0x04U ) == 0x04U )//			Bit[2]
-		GPIOB->BSRR	=	1U << LCD_D6_PIN_HIGH;
+		GPIOC->BSRR	=	1U << LCD_D6_PIN_HIGH;
 	else
-		GPIOB->BSRR	=	1U << LCD_D6_PIN_LOW;
+		GPIOC->BSRR	=	1U << LCD_D6_PIN_LOW;
 
 	if( ( val & 0x08U ) == 0x08U )//			Bit[3]
-		GPIOB->BSRR	=	1U << LCD_D7_PIN_HIGH;
+		GPIOC->BSRR	=	1U << LCD_D7_PIN_HIGH;
 	else
-		GPIOB->BSRR	=	1U << LCD_D7_PIN_LOW;
+		GPIOC->BSRR	=	1U << LCD_D7_PIN_LOW;
 }
 
 //Funcion que escribe 1 byte de datos en el LCD
@@ -118,13 +118,13 @@ void LCD_Write_Byte(unsigned char val){
 
 //Funcion que escribe un comando en el LCD
 void LCD_Write_Cmd(unsigned char val){			
-	GPIOB->BSRR	=	1U << LCD_RS_PIN_LOW;//		RS=0 (seleccion de comando)
+	GPIOC->BSRR	=	1U << LCD_RS_PIN_LOW;//		RS=0 (seleccion de comando)
 	LCD_Write_Byte( val );
 }
 
 //Escribe un caracter ASCII en el LCD
 void LCD_Put_Char(unsigned char c){
-	GPIOB->BSRR	=	1U << LCD_RS_PIN_HIGH;//	RS=1 (seleccion de caracteres)
+	GPIOC->BSRR	=	1U << LCD_RS_PIN_HIGH;//	RS=1 (seleccion de caracteres)
 	LCD_Write_Byte( c );
 }
 
@@ -170,12 +170,12 @@ void LCD_Put_Num(int num){
 char LCD_Busy(void){
   /* ***************************************************** */
   /* Configurar la linea D7 del LCD como:
-   * floating input                                        */
+   * input floating                                        */
   
   
   /* ***************************************************** */
 
-	GPIOB->BSRR	 =	1U << LCD_RS_PIN_LOW
+	GPIOC->BSRR	 =	1U << LCD_RS_PIN_LOW
 			|	1U << LCD_RW_PIN_HIGH
 			|	1U << LCD_EN_PIN_HIGH;
 	HAL_Delay(1);//					          deberia de ser un delay of 100us
@@ -183,23 +183,23 @@ char LCD_Busy(void){
   /* ***************************************************** */
   if(  ){//					                  if D7 is set, then
   /* ***************************************************** */
-		GPIOB->BSRR	 =	1U << LCD_RW_PIN_LOW
+		GPIOC->BSRR	 =	1U << LCD_RW_PIN_LOW
 				|	1U << LCD_EN_PIN_LOW;
 
     /* ***************************************************** */
     /* Configurar la linea D7 del LCD como:
-     * general purpose output and 50 MHz speed               */
+     * general purpose output push pull and 50 MHz speed     */
 		
     
     /* ***************************************************** */    
 		return 1;
 	} else {
-		GPIOB->BSRR	 =	1U << LCD_RW_PIN_LOW
+		GPIOC->BSRR	 =	1U << LCD_RW_PIN_LOW
 				|	1U << LCD_EN_PIN_LOW;
 
     /* ***************************************************** */
     /* Configurar la linea D7 del LCD como:
-     * general purpose output and 50 MHz speed               */
+     * general purpose output push pull and 50 MHz speed     */
 		
     
     /* ***************************************************** */  
@@ -209,9 +209,9 @@ char LCD_Busy(void){
 
 //Funcion que genera un pulso en el pin EN del LCD
 void LCD_Pulse_EN(void){
-	GPIOB->BSRR	=	1U << LCD_EN_PIN_HIGH;//		habilita pin EN ON
+	GPIOC->BSRR	=	1U << LCD_EN_PIN_HIGH;//		habilita pin EN ON
 	HAL_Delay(1);//							deberia de ser un delay de 50us
-	GPIOB->BSRR	=	1U << LCD_EN_PIN_LOW;//			habilita pin EN OFF
+	GPIOC->BSRR	=	1U << LCD_EN_PIN_LOW;//			habilita pin EN OFF
 }
 
 /*
