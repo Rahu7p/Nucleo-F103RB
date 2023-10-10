@@ -12,7 +12,9 @@
 /* Completar la lista de definicion de pines del LCD (Puerto B)                 *
  * Ejemplo: D4 (LCD) conectado al pin PB2 del microcontrolador...               *
  *          #define LCD_D4_PIN_HIGH   GPIO_BSRR_BS2_Pos // Set pin DATA4_LCD    *
- *          #define LCD_D4_PIN_LOW    GPIO_BSRR_BR2_Pos // Reset pin DATA4_LCD  */
+ *          #define LCD_D4_PIN_LOW    GPIO_BSRR_BR2_Pos // Reset pin DATA4_LCD  *                                                            
+ * Conexión recomendada de los pines:                                           *
+ * RS->PC6, RW->PC7, EN->PC8, D4->PC9, D5->PC10, D6->PC11, D7->PC12             */ 
 
 #define LCD_RS_PIN_HIGH		                  //		Set pin RS_LCD
 #define LCD_RS_PIN_LOW 		                  //		Reset pin RS_LCD
