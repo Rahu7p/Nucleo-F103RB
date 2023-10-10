@@ -4,7 +4,6 @@
  *  
  *      Author: rahu7p
  */
-
 #include "main.h"
 #include "lcd.h"
 
@@ -24,7 +23,8 @@ const char UserFont[8][8] =
 //Funcion que inicializa el LCD a 4 bits
 void LCD_Init(void){
 	char const *p;
-
+	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;//		I/O port C clock enable
+	
   /* ****************************************************** */
   /* Configurar los pines del Puerto C para las lineas: 
    * RW, RS, EN, D4-D7 del LCD
