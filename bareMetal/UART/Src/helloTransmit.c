@@ -51,8 +51,8 @@ static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void USER_RCC_Init(void);
 void USER_GPIO_Init(void);
-void USER_USART2_Init(void);
-void USER_USART2_Transmit(uint8_t *pData, uint16_t size);
+void USER_USART1_Init(void);
+void USER_USART1_Transmit(uint8_t *pData, uint16_t size);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,14 +91,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
   USER_RCC_Init();
   USER_GPIO_Init();
-  USER_USART2_Init();
+  USER_USART1_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  USER_USART2_Transmit( msg, sizeof( msg ) );
+	  USER_USART1_Transmit( msg, sizeof( msg ) );
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -166,30 +166,30 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void USER_RCC_Init(void){
-	RCC->APB1ENR	|=	 RCC_APB1ENR_USART2EN;//  	USART2 clock enable
-	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN;//    	I/O port A clock enable
+void USER_RCC_Init(void){	
+	RCC->APB2ENR	|=	 RCC_APB2ENR_IOPAEN//    	I/O port A clock enable
+			|	 RCC_APB1ENR_USART1EN;//  	USART1 clock enable
 }
 
 void USER_GPIO_Init(void){
-	//pin PA2 (USART2_TX) as alternate function output push-pull, max speed 10MHz
-	GPIOA->CRL	&=	~GPIO_CRL_CNF2_0 & ~GPIO_CRL_MODE2_1;
-	GPIOA->CRL	|=	 GPIO_CRL_CNF2_1 | GPIO_CRL_MODE2_0;
+	//pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10MHz
+	GPIOA->CRH	&=	~GPIO_CRH_CNF9_0 & ~GPIO_CRH_MODE9_1;
+	GPIOA->CRH	|=	 GPIO_CRH_CNF9_1 | GPIO_CRH_MODE9_0;
 }
 
-void USER_USART2_Init(void){
-	USART2->CR1	|=	 USART_CR1_UE;//		USART enabled
-	USART2->CR1	&=	~USART_CR1_M//		  	1 start bit, 8 data bits
+void USER_USART1_Init(void){
+	USART1->CR1	|=	 USART_CR1_UE;//		USART enabled
+	USART1->CR1	&=	~USART_CR1_M//		  	1 start bit, 8 data bits
 			&	~USART_CR1_PCE;//		parity control disabled
-	USART2->CR2	&=	~USART_CR2_STOP;//  		1 stop bit
-	USART2->BRR	 =	 0xD05;//			9600 bps -> 208.33, 
-	USART2->CR1	|=	 USART_CR1_TE;//	        transmitter enabled
+	USART1->CR2	&=	~USART_CR2_STOP;//  		1 stop bit
+	USART1->BRR	 =	 0x1A0B;//			9600 bps -> 416.67, 
+	USART1->CR1	|=	 USART_CR1_TE;//	        transmitter enabled
 }
 
-void USER_USART2_Transmit(uint8_t *pData, uint16_t size ){
+void USER_USART1_Transmit(uint8_t *pData, uint16_t size ){
 	for( int i = 0; i < size; i++ ){
-		while( ( USART2->SR & USART_SR_TXE ) == 0 ){}//	wait until transmit reg is empty
-		USART2->DR = *pData++;//			transmit data
+		while( ( USART1->SR & USART_SR_TXE ) == 0 ){}//	wait until transmit reg is empty
+		USART1->DR = *pData++;//			transmit data
 	}
 }
 /* USER CODE END 4 */
