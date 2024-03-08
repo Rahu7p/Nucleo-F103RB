@@ -64,9 +64,9 @@ int main(void)
 
 void USER_RCC_ClockEnable( void ){
 	// RCC_APB2ENR modified to IO port A clock enable
-	RCC->APB2ENR	=	RCC->APB2ENR//			RCC_APB2ENR actual value
-				|//				to set
-				( 0x1UL << 2U );//		(mask) IOPAEN bit
+	RCC->APB2ENR		=	RCC->APB2ENR//		RCC_APB2ENR actual value
+					|//			to set
+					( 0x1UL << 2U );//	(mask) IOPAEN bit
 }
 void USER_GPIO_Init( void ){
 	// GPIOx_BSRR modified to reset pin5 of port A (LD2 is connected to PA5)
