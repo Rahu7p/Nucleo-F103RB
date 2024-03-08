@@ -12,7 +12,7 @@
 
 /* ***************************** START **************************************** */
 /* Libraries, Definitions and Global Declarations */
-#include <stdio.h>
+#include <stdint.h>
 
 /* Reset and Clock Control registers */
 typedef struct
