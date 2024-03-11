@@ -43,7 +43,7 @@ typedef struct
 
 #define RCC_BASE	0x40021000UL//	RCC base address
 #define GPIOA_BASE	0x40010800UL//	GPIO Port A base address
-#define RCC         ((RCC_TypeDef *)RCC_BASE)
+#define RCC         	((RCC_TypeDef *)RCC_BASE)
 #define GPIOA		((GPIO_TypeDef *)GPIOA_BASE)
 
 void USER_RCC_ClockEnable( void );
@@ -55,32 +55,33 @@ int main(void)
 	/* Declarations and Initializations */
 	USER_RCC_ClockEnable( );
 	USER_GPIO_Init( );
-    /* Repetitive block */
-    for(;;){
-    	GPIOA->BSRR	=	( 0x1UL <<  5U );                 //	value to reset pin5 of port A (Turn-OFF LD2)
-        GPIOA->BSRR	=	( 0x1UL << 21U );                      //	value to set pin5 of port A (Turn-ON LD2)
-    }
+    	/* Repetitive block */
+    	for(;;){
+    		GPIOA->BSRR	=	( 0x1UL <<  5U );                 //	value to reset pin5 of port A (Turn-OFF LD2)
+        	GPIOA->BSRR	=	( 0x1UL << 21U );                      //	value to set pin5 of port A (Turn-ON LD2)
+    	}
 }
 
 void USER_RCC_ClockEnable( void ){
 	// RCC_APB2ENR modified to IO port A clock enable
 	RCC->APB2ENR	=	RCC->APB2ENR//		RCC_APB2ENR actual value
-						|//					to set
-						( 0x1UL <<  2U );//	(mask) IOPAEN bit
+				|//			to set
+				( 0x1UL <<  2U );//	(mask) IOPAEN bit
 }
+
 void USER_GPIO_Init( void ){
 	// GPIOx_BSRR modified to reset pin5 of port A (LD2 is connected to PA5)
-	GPIOA->BSRR		=	( 0x1UL << 21U );//	immediate value
+	GPIOA->BSRR	=	( 0x1UL << 21U );//	immediate value
 
 	// GPIOx_CRL modified to configure pin5 as output
-	GPIOA->CRL		=	GPIOA->CRL//		GPIOx_CRL actual value
-						&//					to clear
-						~( 0x3UL << 22U )//	(mask) CNF5[1:0] bits
-						&//					to clear
-						~( 0x2UL << 20U );//(mask) MODE5_1 bit
+	GPIOA->CRL	=	GPIOA->CRL//		GPIOx_CRL actual value
+				&//			to clear
+				~( 0x3UL << 22U )//	(mask) CNF5[1:0] bits
+				&//			to clear
+				~( 0x2UL << 20U );//	(mask) MODE5_1 bit
 
 	// GPIOx_CRL modified to select pin5 max speed of 10MHz
-	GPIOA->CRL		=	GPIOA->CRL//		GPIOx_CRL actual value
-						|//					to set
-						( 0x1UL << 20U );//	(mask) MODE5_0 bit
+	GPIOA->CRL	=	GPIOA->CRL//		GPIOx_CRL actual value
+				|//			to set
+				( 0x1UL << 20U );//	(mask) MODE5_0 bit
 }
