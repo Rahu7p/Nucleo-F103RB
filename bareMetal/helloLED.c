@@ -57,8 +57,8 @@ int main(void)
 	USER_GPIO_Init( );
     	/* Repetitive block */
     	for(;;){
-    		GPIOA->BSRR	=	( 0x1UL <<  5U );//	value to reset pin5 of port A (Turn-OFF LD2)
-        	GPIOA->BSRR	=	( 0x1UL << 21U );//	value to set pin5 of port A (Turn-ON LD2)
+    		GPIOA->BSRR	=	( 0x1UL <<  5U );//	value to set pin5 of port A (Turn-OFF LD2)
+        	GPIOA->BSRR	=	( 0x1UL << 21U );//	value to reset pin5 of port A (Turn-ON LD2)
     	}
 }
 
