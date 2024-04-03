@@ -30,10 +30,10 @@ int main(void)
 	USER_GPIO_Init( );
 	USER_USART2_Init( );
 
-    /* Repetitive block */
-    for(;;){
-    	USER_USART2_Transmit( msg, sizeof( msg ));
-    }
+    	/* Repetitive block */
+    	for(;;){
+    		USER_USART2_Transmit( msg, sizeof( msg ));
+    	}
 }
 
 void USER_RCC_ClockEnable( void ){
