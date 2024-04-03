@@ -8,7 +8,7 @@
 #define USART_CR2_STOP  ( 0x3UL << 12U )
 #define USART_SR_TXE    ( 0x1UL <<  7U )
 
-void USER_USART2_Init( void );
-void USER_USART2_Transmit( uint8_t *pData, uint16_t size );
+void USER_USART1_Init( void );
+void USER_USART1_Transmit( uint8_t *pData, uint16_t size );
 
 #endif /* UART_H_ */
