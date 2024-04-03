@@ -5,7 +5,7 @@
  * @board          : NUCLEO-F103RB
  ******************************************************************************
  *
- * C code to transmit the Hello World! string using the serial port (USART2) 
+ * C code to transmit the Hello World! string using the serial port (USART1) 
  * in bare metal
  *
  ******************************************************************************
@@ -28,22 +28,22 @@ int main(void)
 	/* Declarations and Initializations */
 	USER_RCC_ClockEnable( );
 	USER_GPIO_Init( );
-	USER_USART2_Init( );
+	USER_USART1_Init( );
 
     	/* Repetitive block */
     	for(;;){
-    		USER_USART2_Transmit( msg, sizeof( msg ));
+    		USER_USART1_Transmit( msg, sizeof( msg ));
     	}
 }
 
 void USER_RCC_ClockEnable( void ){
-	RCC->APB2ENR	|=	 ( 0x1UL <<  2U );//	IO port A clock enable
-	RCC->APB1ENR	|=   	 ( 0x1UL << 17U );//	USART 2 clock enable
+	RCC->APB2ENR	|=	 ( 0x1UL <<  2U )//	IO port A clock enable
+			|	 ( 0x1UL << 14U );//	USART 1 clock enable
 }
 void USER_GPIO_Init( void ){
-	//pin PA2 (USART2_TX) as alternate function output push-pull, max speed 10MHz
-	GPIOA->CRL	&=	~( 0x1UL << 10U )
-			&	~( 0x2UL <<  8U );
-	GPIOA->CRL	|=	 ( 0x2UL << 10U )
-			|	 ( 0x1UL <<  8U );
+	//pin PA9 (USART1_TX) as alternate function output push-pull, max speed 10MHz
+	GPIOA->CRH	&=	~( 0x1UL <<  6U )
+			&	~( 0x2UL <<  4U );
+	GPIOA->CRH	|=	 ( 0x2UL <<  6U )
+			|	 ( 0x1UL <<  4U );
 }
