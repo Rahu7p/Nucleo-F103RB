@@ -38,12 +38,12 @@ int main(void)
 
 void USER_RCC_ClockEnable( void ){
 	RCC->APB2ENR	|=	 ( 0x1UL <<  2U );//	IO port A clock enable
-	RCC->APB1ENR	|=   ( 0x1UL << 17U );//	USART 2 clock enable
+	RCC->APB1ENR	|=   	 ( 0x1UL << 17U );//	USART 2 clock enable
 }
 void USER_GPIO_Init( void ){
 	//pin PA2 (USART2_TX) as alternate function output push-pull, max speed 10MHz
-	GPIOA->CRL		&=	~( 0x1UL << 10U )
-					      &	~( 0x2UL <<  8U );
-	GPIOA->CRL		|=	 ( 0x2UL << 10U )
-					      |	 ( 0x1UL <<  8U );
+	GPIOA->CRL	&=	~( 0x1UL << 10U )
+			&	~( 0x2UL <<  8U );
+	GPIOA->CRL	|=	 ( 0x2UL << 10U )
+			|	 ( 0x1UL <<  8U );
 }
