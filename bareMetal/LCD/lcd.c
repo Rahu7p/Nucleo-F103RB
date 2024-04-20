@@ -21,6 +21,7 @@ void LCD_Init(void){
 /**
   * Configuracion de todos los pines hacia el LCD general purpose output push-pull, 10 MHz speed
   */
+	RCC->APB2ENR	|=	 ( 0x1UL <<  4U );//			IO port C clock enable	
 	GPIOC->CRL	&=	~( 0x3UL << 30U ) & ~( 0x2UL << 28U )
 			& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
 	GPIOC->CRL 	|= 	 ( 0x1UL << 28U )
