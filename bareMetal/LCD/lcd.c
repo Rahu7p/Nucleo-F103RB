@@ -19,24 +19,22 @@ const int8_t UserFont[8][8] =
 void LCD_Init(void){
 	int8_t const *p;
 /**
-  * Configuracion de todos los pines hacia el LCD
-  * general purpose output push-pull, 10 MHz speed
+  * Configuracion de todos los pines hacia el LCD general purpose output push-pull, 10 MHz speed
   */
 	GPIOC->CRL	&=	~( 0x3UL << 30U ) & ~( 0x2UL << 28U )
-				& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
+			& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
 	GPIOC->CRL 	|= 	 ( 0x1UL << 28U )
-				|  	 ( 0x1UL << 24U );
+			|  	 ( 0x1UL << 24U );
 	GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U )
-				& 	~( 0x3UL << 14U ) & ~( 0x2UL << 12U )
-				&	~( 0x3UL << 10U ) & ~( 0x2UL <<  8U )
-				& 	~( 0x3UL <<  6U ) & ~( 0x2UL <<  4U )
-				& 	~( 0x3UL <<  2U ) & ~( 0x2UL <<  0U );
+			& 	~( 0x3UL << 14U ) & ~( 0x2UL << 12U )
+			&	~( 0x3UL << 10U ) & ~( 0x2UL <<  8U )
+			& 	~( 0x3UL <<  6U ) & ~( 0x2UL <<  4U )
+			& 	~( 0x3UL <<  2U ) & ~( 0x2UL <<  0U );
 	GPIOC->CRH	|= 	 ( 0x1UL << 16U )
-				|  	 ( 0x1UL << 12U )
-				| 	 ( 0x1UL <<  8U )
-				|  	 ( 0x1UL <<  4U )
-				|  	 ( 0x1UL <<  0U );
-
+			|  	 ( 0x1UL << 12U )
+			| 	 ( 0x1UL <<  8U )
+			|  	 ( 0x1UL <<  4U )
+			|  	 ( 0x1UL <<  0U );
 /**
   * Inicialización del LCD
   * https://web.alfredstate.edu/faculty/weimandn/lcd/lcd_initialization/lcd_initialization_index.html
@@ -50,47 +48,47 @@ void LCD_Init(void){
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	USER_TIM_Delay();//	50ms
-	/* Special case of 'Function Set' 						*/
+	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 	USER_TIM_Delay();//	5ms
-	/* Special case of 'Function Set' 						*/
+	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
 	USER_TIM_Delay();//	100us
-	/* Special case of 'Function Set' 						*/
+	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	while( LCD_Busy( ) );//									checking the busy flag
+	while( LCD_Busy( ) );//						checking the busy flag
 	/* Initial 'Function Set' to change 4-bit mode 			*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	while( LCD_Busy( ) );//									checking the busy flag
+	while( LCD_Busy( ) );//						checking the busy flag
 	/* 'Function Set' (I=1, N and F as required)			*/
-	LCD_Write_Cmd( 0x28U );//								2-line display, 5x7 dot
-	/* 'Display ON/OFF Control' (D=0, C=0, B=0)				*/
-	LCD_Write_Cmd( 0x08U );//								display, cursor and blinking off
-	/* 'Clear Display'										*/
+	LCD_Write_Cmd( 0x28U );//					2-line display, 5x7 dot
+	/* 'Display ON/OFF Control' (D=0, C=0, B=0)			*/
+	LCD_Write_Cmd( 0x08U );//					display, cursor and blinking off
+	/* 'Clear Display'						*/
 	LCD_Write_Cmd( 0x01U );//
-	/* 'Entry Mode Set' (I/D and S as required)				*/
-	LCD_Write_Cmd( 0x06U );//								cursor increment by 1, shift off
-	/* Initialization Ends									*/
-	LCD_Write_Cmd( 0x0FU );//								display, cursor and blinking on
+	/* 'Entry Mode Set' (I/D and S as required)			*/
+	LCD_Write_Cmd( 0x06U );//					cursor increment by 1, shift off
+	/* Initialization Ends						*/
+	LCD_Write_Cmd( 0x0FU );//					display, cursor and blinking on
 
 	//Cargamos el caracter definido por el usuario en la CGRAM
-	LCD_Write_Cmd( 0x40 );//								establece la direccion CGRAM desde 0
+	LCD_Write_Cmd( 0x40 );//					establece la direccion CGRAM desde 0
 	p = &UserFont[0][0];
 
 	for( int i = 0; i < sizeof( UserFont ); i++, p++ )
