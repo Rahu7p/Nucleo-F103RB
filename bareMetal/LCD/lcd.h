@@ -2,23 +2,23 @@
 #define INC_LCD_H_
 
 //Lista de definicion de pines
-#define LCD_RS_PIN_HIGH    ( 0x1UL <<  6U )//		Set pin RS_LCD (PC6)
-#define LCD_RW_PIN_HIGH  ( 0x1UL <<  7U )//		Set pin RW_LCD (PC7)
-#define LCD_EN_PIN_HIGH  ( 0x1UL <<  8U )//		Set pin EN_LCD (PC8)
+#define LCD_RS_PIN_HIGH       ( 0x1UL <<  6U )//		Set pin RS_LCD (PC6)
+#define LCD_RW_PIN_HIGH       ( 0x1UL <<  7U )//		Set pin RW_LCD (PC7)
+#define LCD_EN_PIN_HIGH       ( 0x1UL <<  8U )//		Set pin EN_LCD (PC8)
 
-#define LCD_RS_PIN_LOW  ( 0x1UL << 22U )//		Reset pin RS_LCD (PC6)
-#define LCD_RW_PIN_LOW 	( 0x1UL << 23U )//		Reset pin RW_LCD (PC7)
-#define LCD_EN_PIN_LOW 	( 0x1UL << 24U )//		Reset pin EN_LCD (PC8)
+#define LCD_RS_PIN_LOW        ( 0x1UL << 22U )//		Reset pin RS_LCD (PC6)
+#define LCD_RW_PIN_LOW 	      ( 0x1UL << 23U )//		Reset pin RW_LCD (PC7)
+#define LCD_EN_PIN_LOW 	      ( 0x1UL << 24U )//		Reset pin EN_LCD (PC8)
 
-#define LCD_D4_PIN_HIGH  ( 0x1UL <<  9U )//		Set pin DATA4_LCD (PC9)
-#define LCD_D5_PIN_HIGH  ( 0x1UL << 10U )//		Set pin DATA5_LCD (PC10)
-#define LCD_D6_PIN_HIGH  ( 0x1UL << 11U )//		Set pin DATA6_LCD (PC11)
-#define LCD_D7_PIN_HIGH  ( 0x1UL << 12U )//		Set pin DATA7_LCD (PC12)
+#define LCD_D4_PIN_HIGH       ( 0x1UL <<  9U )//		Set pin DATA4_LCD (PC9)
+#define LCD_D5_PIN_HIGH       ( 0x1UL << 10U )//		Set pin DATA5_LCD (PC10)
+#define LCD_D6_PIN_HIGH       ( 0x1UL << 11U )//		Set pin DATA6_LCD (PC11)
+#define LCD_D7_PIN_HIGH       ( 0x1UL << 12U )//		Set pin DATA7_LCD (PC12)
 
-#define LCD_D4_PIN_LOW      ( 0x1UL << 25U )//		Reset pin DATA4_LCD (PC9)
-#define LCD_D5_PIN_LOW 	    ( 0x1UL << 26U )//		Reset pin DATA5_LCD (PC10)
-#define LCD_D6_PIN_LOW 	    ( 0x1UL << 27U )//		Reset pin DATA6_LCD (PC11)
-#define LCD_D7_PIN_LOW 	    ( 0x1UL << 28U )//		Reset pin DATA7_LCD (PC12)
+#define LCD_D4_PIN_LOW        ( 0x1UL << 25U )//		Reset pin DATA4_LCD (PC9)
+#define LCD_D5_PIN_LOW 	      ( 0x1UL << 26U )//		Reset pin DATA5_LCD (PC10)
+#define LCD_D6_PIN_LOW 	      ( 0x1UL << 27U )//		Reset pin DATA6_LCD (PC11)
+#define LCD_D7_PIN_LOW 	      ( 0x1UL << 28U )//		Reset pin DATA7_LCD (PC12)
 
 //Definimos los nombres de los comandos para el LCD
 #define LCD_Clear( )          LCD_Write_Cmd( 0x01U )//	Borra la pantalla
