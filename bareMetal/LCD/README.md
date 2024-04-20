@@ -17,7 +17,7 @@
 ## Connections
 The LCD display needs +5V as power supply. The Nucleo-F103RB can supply this voltage via a +5V pin.
 
-![](image.png)
+![alt text](https://microcontrollerslab.com/wp-content/uploads/2015/01/LCD-Interfacing-with-Pic-microcontroller-Connection-diagram.png)
 	
 ## Setup
 This is an example of usage. You will need to define your own delay and enable the TIM clock (RCC).
