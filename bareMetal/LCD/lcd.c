@@ -133,13 +133,13 @@ void LCD_Write_Byte(uint8_t val){
 
 //Funcion que escribe un comando en el LCD
 void LCD_Write_Cmd(uint8_t val){
-	GPIOC->BSRR	=	LCD_RS_PIN_LOW;//				RS=0 (seleccion de comando)
+	GPIOC->BSRR	=	LCD_RS_PIN_LOW;//			RS=0 (seleccion de comando)
 	LCD_Write_Byte( val );
 }
 
 //Escribe un caracter ASCII en el LCD
 void LCD_Put_Char(uint8_t c){
-	GPIOC->BSRR	=	LCD_RS_PIN_HIGH;//				RS=1 (seleccion de caracteres)
+	GPIOC->BSRR	=	LCD_RS_PIN_HIGH;//			RS=1 (seleccion de caracteres)
 	LCD_Write_Byte( c );
 }
 
@@ -157,7 +157,7 @@ void LCD_Set_Cursor(uint8_t line, uint8_t column){
 //Funcion que envia una cadena de caracteres ASCII al LCD
 void LCD_Put_Str(char * str){
 	for( int16_t i = 0; i < 16 && str[ i ] != 0; i++ )
-		LCD_Put_Char( str[ i ] );//					envia 1 byte al LCD
+		LCD_Put_Char( str[ i ] );//				envia 1 byte al LCD
 }
 
 //Funcion que envia un caracter numerico al LCD
@@ -192,7 +192,7 @@ char LCD_Busy(void){
 	GPIOC->BSRR	 =	 LCD_RW_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_EN_PIN_HIGH;
 	USER_TIM_Delay();//	100us
-	if(( GPIOC->IDR	& LCD_D7_PIN_HIGH )) {//				if D7 is set, then
+	if(( GPIOC->IDR	& LCD_D7_PIN_HIGH )) {//			if D7 is set, then
 		GPIOC->BSRR	= 	LCD_EN_PIN_LOW;
 		GPIOC->BSRR	=	LCD_RW_PIN_LOW;
 /**
@@ -217,9 +217,9 @@ char LCD_Busy(void){
 void LCD_Pulse_EN(void){
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;//
 	USER_TIM_Delay();//	10us
-	GPIOC->BSRR	=	LCD_EN_PIN_HIGH;//						habilita pin EN ON
+	GPIOC->BSRR	=	LCD_EN_PIN_HIGH;//			habilita pin EN ON
 	USER_TIM_Delay();//	10us
-	GPIOC->BSRR	=	LCD_EN_PIN_LOW;//						habilita pin EN OFF
+	GPIOC->BSRR	=	LCD_EN_PIN_LOW;//			habilita pin EN OFF
 	USER_TIM_Delay();//	1ms
 }
 
@@ -229,7 +229,7 @@ void LCD_Pulse_EN(void){
  * en 'size' especificamos su tamaño
  */
 void LCD_BarGraphic(int16_t value, int16_t size){
-	value = value * size / 20;//							matriz de 5x8 pixeles
+	value = value * size / 20;//					matriz de 5x8 pixeles
 	for( int16_t i = 0; i < size; i++ ){
 		if( value > 5 ){
 			LCD_Put_Char( 0x05U );
@@ -242,9 +242,8 @@ void LCD_BarGraphic(int16_t value, int16_t size){
 }
 
 /*
- * Funcion que muestra un caracter grafico en el LCD
- * especificando la posicion pos_x horizontal de inicio y
- * la posicion pos_y vertical de la pantalla LCD
+ * Funcion que muestra un caracter grafico en el LCD especificando 
+ * la posicion pos_x horizontal de inicio y la posicion pos_y vertical de la pantalla LCD
  */
 void LCD_BarGraphicXY(int16_t pos_x, int16_t pos_y, int16_t value){
 	LCD_Set_Cursor( pos_x, pos_y );
