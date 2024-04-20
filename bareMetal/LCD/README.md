@@ -24,7 +24,29 @@ Project is created with:
 To run this project, install it locally using npm:
 
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+$ #include <stdint.h>
+$ #include "main.h"
+$ #include "lcd.h"
+$
+$ int main(void)
+$ {
+$	uint8_t col = 16;
+$ 	LCD_Init( );
+$    for(;;){
+$    	LCD_Clear( );
+$    	LCD_Set_Cursor( 1, 1 );
+$    	LCD_Put_Str( "TE" );
+$    	LCD_Put_Num( 2003 );
+$    	LCD_Put_Char( 'B' );
+$    	LCD_Put_Str( " SenChip" );
+$    	LCD_Set_Cursor( 2, col-- );
+$    	LCD_Put_Str( "Prueba de LCD ");
+$    	LCD_BarGraphic( 0, 64 );
+$	USER_TIM_Delay( );// 200ms
+$    	if( col == 0 ){
+$    		USER_TIM_Delay( );// 500ms
+$    		col = 16;
+$    	}
+$    }
+$ }
 ```
