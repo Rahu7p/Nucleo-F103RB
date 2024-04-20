@@ -21,16 +21,16 @@
 #define LCD_D7_PIN_LOW 	( 0x1UL << 28U )//		Reset pin DATA7_LCD (PC12)
 
 //Definimos los nombres de los comandos para el LCD
-#define LCD_Clear( )    LCD_Write_Cmd( 0x01U )//	Borra la pantalla
-#define LCD_Display_ON( )  LCD_Write_Cmd( 0x0EU )//	Pantalla LCD activa
-#define LCD_Display_OFF( )  LCD_Write_Cmd( 0x08U )//	Pantalla LCD inactiva
-#define LCD_Cursor_Home( )  LCD_Write_Cmd( 0x02U )//	Establecer el cursor a 'Home'
-#define LCD_Cursor_Blink( )  LCD_Write_Cmd( 0x0FU )//	Cursor intermitente
-#define LCD_Cursor_ON( )  LCD_Write_Cmd( 0x0EU )//	Cursor visible activo
-#define LCD_Cursor_OFF( )  LCD_Write_Cmd( 0x0CU )//	Cursor inactivo
-#define LCD_Cursor_Left( )  LCD_Write_Cmd( 0x10U )//	Movimiento hacia la izquierda del cursor
-#define LCD_Cursor_Right( )  LCD_Write_Cmd( 0x14U )//	Movimiento hacia la derecha del cursor
-#define LCD_Cursor_SLeft( )  LCD_Write_Cmd( 0x18U )//	Movimiento hacia la izquierda de la pantalla
+#define LCD_Clear( )          LCD_Write_Cmd( 0x01U )//	Borra la pantalla
+#define LCD_Display_ON( )     LCD_Write_Cmd( 0x0EU )//	Pantalla LCD activa
+#define LCD_Display_OFF( )    LCD_Write_Cmd( 0x08U )//	Pantalla LCD inactiva
+#define LCD_Cursor_Home( )    LCD_Write_Cmd( 0x02U )//	Establecer el cursor a 'Home'
+#define LCD_Cursor_Blink( )   LCD_Write_Cmd( 0x0FU )//	Cursor intermitente
+#define LCD_Cursor_ON( )      LCD_Write_Cmd( 0x0EU )//	Cursor visible activo
+#define LCD_Cursor_OFF( )     LCD_Write_Cmd( 0x0CU )//	Cursor inactivo
+#define LCD_Cursor_Left( )    LCD_Write_Cmd( 0x10U )//	Movimiento hacia la izquierda del cursor
+#define LCD_Cursor_Right( )   LCD_Write_Cmd( 0x14U )//	Movimiento hacia la derecha del cursor
+#define LCD_Cursor_SLeft( )   LCD_Write_Cmd( 0x18U )//	Movimiento hacia la izquierda de la pantalla
 #define LCD_Cursor_SRight( )  LCD_Write_Cmd( 0x1CU )//	Movimiento hacia la derecha de la pantalla
 
 //Lista de funciones
