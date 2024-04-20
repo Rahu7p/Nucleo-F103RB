@@ -1,6 +1,6 @@
 ## Table of contents
 * [General info](#general-info)
-* [Technologies](#technologies)
+* [Connections](#connections)
 * [Setup](#setup)
 
 ## General info
@@ -14,39 +14,38 @@
 	* The 'lcd.c' file contains the functions needed to initialize and drive the LCD1602 (clear the display, move the cursor, write a character, write a string, etc.)
 		* In this file, you will need to implement your own delays. Pay attention to the desired times.
 	
-## Technologies
-Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+## Connections
+The LCD display needs +5V as power supply. The Nucleo-F103RB can supply this voltage via a +5V pin.
+
+![](image.png)
 	
 ## Setup
-To run this project, install it locally using npm:
+This is an example of usage. You will need to define your own delay and enable the TIM clock (RCC).
 
 ```
-$ #include <stdint.h>
-$ #include "main.h"
-$ #include "lcd.h"
-$
-$ int main(void)
-$ {
-$	uint8_t col = 16;
-$ 	LCD_Init( );
-$    for(;;){
-$    	LCD_Clear( );
-$    	LCD_Set_Cursor( 1, 1 );
-$    	LCD_Put_Str( "TE" );
-$    	LCD_Put_Num( 2003 );
-$    	LCD_Put_Char( 'B' );
-$    	LCD_Put_Str( " SenChip" );
-$    	LCD_Set_Cursor( 2, col-- );
-$    	LCD_Put_Str( "Prueba de LCD ");
-$    	LCD_BarGraphic( 0, 64 );
-$	USER_TIM_Delay( );// 200ms
-$    	if( col == 0 ){
-$    		USER_TIM_Delay( );// 500ms
-$    		col = 16;
-$    	}
-$    }
-$ }
+#include <stdint.h>
+#include "main.h"
+#include "lcd.h"
+
+int main(void)
+{
+	uint8_t col = 16;
+ 	LCD_Init( );
+    for(;;){
+    	LCD_Clear( );
+    	LCD_Set_Cursor( 1, 1 );
+    	LCD_Put_Str( "TE" );
+    	LCD_Put_Num( 2003 );
+    	LCD_Put_Char( 'B' );
+    	LCD_Put_Str( " SoC" );
+    	LCD_Set_Cursor( 2, col-- );
+    	LCD_Put_Str( "Prueba de LCD ");
+    	LCD_BarGraphic( 0, 64 );
+	USER_TIM_Delay( );// 200ms
+    	if( col == 0 ){
+    		USER_TIM_Delay( );// 500ms
+    		col = 16;
+    	}
+    }
+}
 ```
