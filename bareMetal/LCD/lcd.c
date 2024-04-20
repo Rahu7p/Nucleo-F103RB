@@ -187,7 +187,7 @@ char LCD_Busy(void){
   * Configuracion de D7 as input floating
   */
 	GPIOC->CRH	&=	~( 0x2UL << 18U ) & ~( 0x3UL << 16U );
-	GPIOC->CRH	|=   ( 0x1UL << 18U );
+	GPIOC->CRH	|=   	 ( 0x1UL << 18U );
 	GPIOC->BSRR	 =	 LCD_RS_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_RW_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_EN_PIN_HIGH;
@@ -199,7 +199,7 @@ char LCD_Busy(void){
   * Configuracion de D7 as output push-pull, 10 MHz speed
   */
 		GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U );
-		GPIOC->CRH	|=   ( 0x1UL << 16U );
+		GPIOC->CRH	|=   	 ( 0x1UL << 16U );
 		return 1;
 	} else {
 		GPIOC->BSRR	= 	LCD_EN_PIN_LOW;
@@ -208,7 +208,7 @@ char LCD_Busy(void){
   * Configuracion de D7 as output push-pull, 10 MHz speed
   */
 		GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U );
-		GPIOC->CRH	|=   ( 0x1UL << 16U );
+		GPIOC->CRH	|=   	 ( 0x1UL << 16U );
 		return 0;
 	}
 }
