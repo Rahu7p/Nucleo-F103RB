@@ -31,7 +31,7 @@
 #define LCD_Cursor_Left( )		LCD_Write_Cmd( 0x10U )//	Movimiento hacia la izquierda del cursor
 #define LCD_Cursor_Right( )		LCD_Write_Cmd( 0x14U )//	Movimiento hacia la derecha del cursor
 #define LCD_Cursor_SLeft( )		LCD_Write_Cmd( 0x18U )//	Movimiento hacia la izquierda de la pantalla
-#define LCD_Cursor_SRight( )	  LCD_Write_Cmd( 0x1CU )//	Movimiento hacia la derecha de la pantalla
+#define LCD_Cursor_SRight( )	    LCD_Write_Cmd( 0x1CU )//	Movimiento hacia la derecha de la pantalla
 
 //Lista de funciones
 void LCD_Data_Out4(uint8_t val);
