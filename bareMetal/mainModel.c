@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "main.h"
 #include "uart.h"
 #include <stddef.h>
