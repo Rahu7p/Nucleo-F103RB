@@ -24,8 +24,8 @@ int main(void)
       			if(!USER_B1){
         			EngTrModel_U.Throttle = 1.3;
 			  	EngTrModel_U.BrakeTorque = 100.0;
-        		while(!USER_B1);
-        		USER_TIM_Delay();//  10ms
+        			while(!USER_B1);
+        			USER_TIM_Delay();//  10ms
       			}
 		}
 		else{
