@@ -13,20 +13,20 @@ void USER_GPIO_Init(void);
 
 int main(void)
 {
-  USER_RCC_Init();
+  	USER_RCC_Init();
 	USER_GPIO_Init();
-  USER_USART2_Init();
+  	USER_USART2_Init();
 	EngTrModel_initialize();
   for(;;)
 	{
 		if(!USER_B1){
-      USER_TIM_Delay()//  10ms
-      if(!USER_B1){
-        EngTrModel_U.Throttle = 1.3;
-			  EngTrModel_U.BrakeTorque = 100.0;
-        while(!USER_B1);
-        USER_TIM_Delay()//  10ms
-      }
+      			USER_TIM_Delay()//  10ms
+      			if(!USER_B1){
+        			EngTrModel_U.Throttle = 1.3;
+			  	EngTrModel_U.BrakeTorque = 100.0;
+        		while(!USER_B1);
+        		USER_TIM_Delay()//  10ms
+      			}
 		}
 		else{
 			EngTrModel_U.Throttle = 50.0;
