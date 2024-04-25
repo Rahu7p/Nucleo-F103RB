@@ -20,12 +20,12 @@ int main(void)
   for(;;)
 	{
 		if(!USER_B1){
-      			USER_TIM_Delay()//  10ms
+      			USER_TIM_Delay();//  10ms
       			if(!USER_B1){
         			EngTrModel_U.Throttle = 1.3;
 			  	EngTrModel_U.BrakeTorque = 100.0;
         		while(!USER_B1);
-        		USER_TIM_Delay()//  10ms
+        		USER_TIM_Delay();//  10ms
       			}
 		}
 		else{
@@ -36,7 +36,7 @@ int main(void)
 		printf("Vehicle Speed: %f\r\n", EngTrModel_Y.VehicleSpeed);
 		printf("Engine Speed: %f\r\n", EngTrModel_Y.EngineSpeed);
 		printf("Gear: %f\r\n", EngTrModel_Y.Gear);
-		USER_TIM_Delay()//  40ms
+		USER_TIM_Delay();//  40ms
 	}
 }
 
