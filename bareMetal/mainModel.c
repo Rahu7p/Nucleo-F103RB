@@ -22,7 +22,7 @@ int main(void)
 		if(!USER_B1){
       			USER_TIM_Delay();//  10ms
       			if(!USER_B1){
-        			EngTrModel_U.Throttle = 1.5;
+        			EngTrModel_U.Throttle = 1.45;
 			  	EngTrModel_U.BrakeTorque = 100.0;
       			}
 		}
