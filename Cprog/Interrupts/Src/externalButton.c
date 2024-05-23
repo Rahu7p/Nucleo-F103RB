@@ -11,8 +11,8 @@
   *
   * This code toggles the state of a LED (LD2) each time a button (B1) is pressed.
   * An external interrupt is configured to detect the event (button pressed).
-  *
-  *
+  * If B1 is pressed generates a clean signal in PA10. PA10 must be connected to
+  * PA8 to drive the external interrupt (EXTI8).
   ******************************************************************************
   */
 /* USER CODE END Header */
