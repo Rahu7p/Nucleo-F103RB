@@ -32,12 +32,12 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define SYSCLK			64000000
-#define AHB_PRESC		1
-#define HCLK			( SYSCLK / AHB_PRESC )
-#define T_HCLK			( 1.0 / HCLK )
-#define PRESCALER		63999
-#define TIME_1S			1.0
+#define SYSCLK		64000000
+#define AHB_PRESC	1
+#define HCLK		( SYSCLK / AHB_PRESC )
+#define T_HCLK		( 1.0 / HCLK )
+#define PRESCALER	63999
+#define TIME_1S		1.0
 #define TIM_COUNT_1S	(( 65535 + 1 ) - ( round( TIME_1S / ( T_HCLK * ( PRESCALER + 1 )))))
 /* USER CODE END PD */
 
@@ -178,21 +178,21 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void USER_TIM2_Init(void){
-	RCC->APB1ENR	|=	 RCC_APB1ENR_TIM2EN;//	TIM2 peripheral clock enable
-	TIM2->SMCR	   	&=  ~TIM_SMCR_SMS;//		select internal clock
-	TIM2->CR1	   	&=  ~TIM_CR1_CMS//			edge-aligned mode
-				   	&   ~TIM_CR1_DIR//			upcounter
-					&   ~TIM_CR1_UDIS;//		update event (UEV) enabled
+	RCC->APB1ENR	|=   RCC_APB1ENR_TIM2EN;//	TIM2 peripheral clock enable
+	TIM2->SMCR	&=  ~TIM_SMCR_SMS;//		select internal clock
+	TIM2->CR1	&=  ~TIM_CR1_CMS//		edge-aligned mode
+			&   ~TIM_CR1_DIR//		upcounter
+			&   ~TIM_CR1_UDIS;//		update event (UEV) enabled
 }
 /* Function to generate a 1 second delay */
 void USER_Delay(uint16_t count){
-	TIM2->PSC		 =	 PRESCALER;//			1:977 prescaler
-	TIM2->EGR	   	|=   TIM_EGR_UG;//			update the prescaler
-	TIM2->CNT	  	 =	 count;//				initial count
-	TIM2->SR	   	&=  ~TIM_SR_UIF;//			clear TIM overflow-event flag
-	TIM2->CR1	   	|=	 TIM_CR1_CEN;//			timer enabled
+	TIM2->PSC	 =  PRESCALER;//		1:977 prescaler
+	TIM2->EGR	|=  TIM_EGR_UG;//		update the prescaler
+	TIM2->CNT	 =  count;//			initial count
+	TIM2->SR	&= ~TIM_SR_UIF;//		clear TIM overflow-event flag
+	TIM2->CR1	|=  TIM_CR1_CEN;//		timer enabled
 	while( !(TIM2->SR &  TIM_SR_UIF) );//		wait until overflows
-	TIM2->CR1	   	&=	 TIM_CR1_CEN;//			timer disabled
+	TIM2->CR1	&=  TIM_CR1_CEN;//		timer disabled
 }
 /* USER CODE END 4 */
 
