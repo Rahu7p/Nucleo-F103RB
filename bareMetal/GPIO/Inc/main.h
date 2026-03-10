@@ -9,7 +9,7 @@ typedef struct{
 	volatile uint32_t SR;
 	volatile uint32_t CR;
 	volatile uint32_t AR;
-	volatile uint32_t reserved;
+	volatile uint32_t reserved;L
 	volatile uint32_t OBR;
 	volatile uint32_t WRPR;
 } FLASH_TypeDef;
@@ -45,8 +45,12 @@ typedef struct
 #define RCC_BASE	0x40021000UL//		RCC base address
 #define GPIOA_BASE	0x40010800UL//		GPIO Port A base address
 
-#define FLASH		(( FLASH_TypeDef *)FLASH_BASE )
-#define RCC         (( RCC_TypeDef *)RCC_BASE )
-#define GPIOA		(( GPIO_TypeDef *)GPIOA_BASE )
+#define FLASH		(( FLASH_TypeDef *)FLASH_BASE )// 	FLASH base address points to FLASH structure
+#define RCC         (( RCC_TypeDef *)RCC_BASE )//		RCC base address points to RCC structure
+#define GPIOA		(( GPIO_TypeDef *)GPIOA_BASE )//	GPIO Port A base address points to GPIO structure
+
+void USER_SystemClock_Config( void );
+void USER_GPIO_Init( void );
+void USER_Delay_1sec( void );
 
 #endif /* MAIN_H_ */
