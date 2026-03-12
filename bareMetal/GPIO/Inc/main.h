@@ -9,7 +9,7 @@ typedef struct{
 	volatile uint32_t SR;
 	volatile uint32_t CR;
 	volatile uint32_t AR;
-	volatile uint32_t reserved;L
+	volatile uint32_t reserved;
 	volatile uint32_t OBR;
 	volatile uint32_t WRPR;
 } FLASH_TypeDef;
