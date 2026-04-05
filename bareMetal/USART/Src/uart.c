@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "main.h"
-#include "uart.h"
+#include "user_uart.h"
 
 static void USER_USART1_Send_8bit( uint8_t Data );
 
