@@ -22,20 +22,20 @@ void LCD_Init(void){
   * Configuracion de todos los pines hacia el LCD general purpose output push-pull, 10 MHz speed
   */
 	RCC->APB2ENR	|=	 ( 0x1UL <<  4U );//			IO port C clock enable	
-	GPIOC->CRL	&=	~( 0x3UL << 30U ) & ~( 0x2UL << 28U )
-			& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
-	GPIOC->CRL 	|= 	 ( 0x1UL << 28U )
-			|  	 ( 0x1UL << 24U );
-	GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U )
-			& 	~( 0x3UL << 14U ) & ~( 0x2UL << 12U )
-			&	~( 0x3UL << 10U ) & ~( 0x2UL <<  8U )
-			& 	~( 0x3UL <<  6U ) & ~( 0x2UL <<  4U )
-			& 	~( 0x3UL <<  2U ) & ~( 0x2UL <<  0U );
-	GPIOC->CRH	|= 	 ( 0x1UL << 16U )
-			|  	 ( 0x1UL << 12U )
-			| 	 ( 0x1UL <<  8U )
-			|  	 ( 0x1UL <<  4U )
-			|  	 ( 0x1UL <<  0U );
+	GPIOC->CRL		&=	~( 0x3UL << 30U ) & ~( 0x2UL << 28U )
+					& 	~( 0x3UL << 26U ) & ~( 0x2UL << 24U );
+	GPIOC->CRL 		|= 	 ( 0x1UL << 28U )
+					|  	 ( 0x1UL << 24U );
+	GPIOC->CRH		&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U )
+					& 	~( 0x3UL << 14U ) & ~( 0x2UL << 12U )
+					&	~( 0x3UL << 10U ) & ~( 0x2UL <<  8U )
+					& 	~( 0x3UL <<  6U ) & ~( 0x2UL <<  4U )
+					& 	~( 0x3UL <<  2U ) & ~( 0x2UL <<  0U );
+	GPIOC->CRH		|= 	 ( 0x1UL << 16U )
+					|  	 ( 0x1UL << 12U )
+					| 	 ( 0x1UL <<  8U )
+					|  	 ( 0x1UL <<  4U )
+					|  	 ( 0x1UL <<  0U );
 /**
   * Inicialización del LCD
   * https://web.alfredstate.edu/faculty/weimandn/lcd/lcd_initialization/lcd_initialization_index.html
@@ -48,21 +48,21 @@ void LCD_Init(void){
 	GPIOC->BSRR	 =	 LCD_D5_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
-	USER_TIM_Delay();//	50ms
+	USER_TIM2_Delay_40ms();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait > 40ms
 	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	USER_TIM_Delay();//	5ms
+	USER_TIM_Delay_4_1ms();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait > 4.1ms
 	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D6_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_D7_PIN_LOW;
 	LCD_Pulse_EN( );
-	USER_TIM_Delay();//	100us
+	USER_TIM_Delay_53us();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	wait > 53us
 	/* Special case of 'Function Set' 				*/
 	GPIOC->BSRR	 =	 LCD_D4_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_D5_PIN_HIGH;
@@ -187,11 +187,11 @@ char LCD_Busy(void){
   * Configuracion de D7 as input floating
   */
 	GPIOC->CRH	&=	~( 0x2UL << 18U ) & ~( 0x3UL << 16U );
-	GPIOC->CRH	|=   	 ( 0x1UL << 18U );
+	GPIOC->CRH	|=   ( 0x1UL << 18U );
 	GPIOC->BSRR	 =	 LCD_RS_PIN_LOW;
 	GPIOC->BSRR	 =	 LCD_RW_PIN_HIGH;
 	GPIOC->BSRR	 =	 LCD_EN_PIN_HIGH;
-	USER_TIM_Delay();//	100us
+	USER_TIM_Delay_100us();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait for 100us
 	if(( GPIOC->IDR	& LCD_D7_PIN_HIGH )) {//			if D7 is set, then
 		GPIOC->BSRR	= 	LCD_EN_PIN_LOW;
 		GPIOC->BSRR	=	LCD_RW_PIN_LOW;
@@ -199,7 +199,7 @@ char LCD_Busy(void){
   * Configuracion de D7 as output push-pull, 10 MHz speed
   */
 		GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U );
-		GPIOC->CRH	|=   	 ( 0x1UL << 16U );
+		GPIOC->CRH	|=   ( 0x1UL << 16U );
 		return 1;
 	} else {
 		GPIOC->BSRR	= 	LCD_EN_PIN_LOW;
@@ -208,7 +208,7 @@ char LCD_Busy(void){
   * Configuracion de D7 as output push-pull, 10 MHz speed
   */
 		GPIOC->CRH	&=	~( 0x3UL << 18U ) & ~( 0x2UL << 16U );
-		GPIOC->CRH	|=   	 ( 0x1UL << 16U );
+		GPIOC->CRH	|=   ( 0x1UL << 16U );
 		return 0;
 	}
 }
@@ -216,11 +216,11 @@ char LCD_Busy(void){
 //Funcion que genera un pulso en el pin EN del LCD
 void LCD_Pulse_EN(void){
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;//
-	USER_TIM_Delay();//	10us
+	USER_TIM_Delay_10us();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait for	10us
 	GPIOC->BSRR	=	LCD_EN_PIN_HIGH;//			habilita pin EN ON
-	USER_TIM_Delay();//	10us
+	USER_TIM_Delay_10us();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait for	10us
 	GPIOC->BSRR	=	LCD_EN_PIN_LOW;//			habilita pin EN OFF
-	USER_TIM_Delay();//	1ms
+	USER_TIM_Delay_1ms();// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait for	1ms
 }
 
 /*
