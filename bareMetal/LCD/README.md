@@ -6,10 +6,10 @@
 ## General info
 * To drive the LCD, perform the following:
 	* Download the 'lcd.c' and 'lcd.h' files from this folder
-	* Add the files into your STM32CubeIDE project. You can do this by the drag & drop feature.
+	* Add the files into your STM32 project.
  		* In your file browser select the files and drop them in the project window
 			* Drop the 'lcd.h' file in the Inc/ folder
-			* Drop the ‘lcd.c’ file in the Src/ folder 
+			* Drop the 'lcd.c' file in the Src/ folder 
 	* The 'lcd.h' file contains all the function prototypes and pin definitions.
 	* The 'lcd.c' file contains the functions needed to initialize and drive the LCD1602 (clear the display, move the cursor, write a character, write a string, etc.)
 		* In this file, you will need to implement your own delays. Pay attention to the desired times.
@@ -20,7 +20,7 @@ The LCD display needs +5V as power supply. The Nucleo-F103RB can supply this vol
 ![alt text](https://microcontrollerslab.com/wp-content/uploads/2015/01/LCD-Interfacing-with-Pic-microcontroller-Connection-diagram.png)
 	
 ## Setup
-This is an example of usage. You will need to define your own delay and enable the TIM clock (RCC).
+This is an example of usage. You will need to define your own delays.
 
 ```
 #include <stdint.h>
@@ -29,6 +29,8 @@ This is an example of usage. You will need to define your own delay and enable t
 
 int main(void)
 {
+	USER_SystemClock_Config( ); // 				configure the system clock to 64 MHz
+	USER_TIM_Init( );
 	uint8_t col = 16;
  	LCD_Init( );
     for(;;){
