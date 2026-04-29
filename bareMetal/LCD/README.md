@@ -41,9 +41,9 @@ int main(void)
     	LCD_Set_Cursor( 2, col-- );
     	LCD_Put_Str( "Prueba de LCD ");
     	LCD_BarGraphic( 0, 64 );
-	USER_TIM_Delay( );// 200ms
+	USER_TIM_Delay_200ms( );// 200ms
     	if( col == 0 ){
-    		USER_TIM_Delay( );// 500ms
+    		USER_TIM_Delay_500ms( );// 500ms
     		col = 16;
     	}
     }
