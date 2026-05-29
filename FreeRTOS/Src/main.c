@@ -8,6 +8,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+TickType_t t0;
 TaskHandle_t Task1Handle;
 
 void USER_SystemClock_Config( void );
@@ -37,11 +38,12 @@ int main(void)
 
 // Task1 function
 void StartTask1(void *pvParameters) {
-
+  t0 = xTaskGetTickCount();
+  TickType_t xLastWakeTime = t0;
   /* Infinite loop */
   for(;;) {
 	  printf("Task 1\r\n");
-	  vTaskDelay(1000);
+	  vTaskDelayUntil(&xLastWakeTime, 1000);
   }
 }
 
