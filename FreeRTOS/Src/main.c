@@ -18,8 +18,8 @@ void StartTask1( void *pvParameters );
 int main(void)
 {
 	/* Declarations and Initializations */
-  HAL_Init( );
-  USER_SystemClock_Config( );
+	HAL_Init( );
+  	USER_SystemClock_Config( );
 	USER_UART2_Init( );
 
 	/* Create a task with a priority of 0 (idle), 1 (belowNormal), 2 (Normal), 3 (High), 4 (VeryHigh) */
@@ -38,13 +38,13 @@ int main(void)
 
 // Task1 function
 void StartTask1(void *pvParameters) {
-  t0 = xTaskGetTickCount();
-  TickType_t xLastWakeTime = t0;
-  /* Infinite loop */
-  for(;;) {
-	  printf("Task 1\r\n");
-	  vTaskDelayUntil(&xLastWakeTime, 1000);
-  }
+	t0 = xTaskGetTickCount();
+  	TickType_t xLastWakeTime = t0;
+  	/* Infinite loop */
+  	for(;;) {
+		printf("Task 1\r\n");
+	  	vTaskDelayUntil(&xLastWakeTime, 1000);
+  	}
 }
 
 void USER_SystemClock_Config( void ){
